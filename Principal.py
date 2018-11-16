@@ -18,4 +18,4 @@ from controle import Controle
 # up.vender(comp1, vend1)
 # print(up.get_venda())
 # v12.save_cars()
-c=Controle()
+c = Controle()

@@ -4,20 +4,6 @@ class Concessionaria:
     def __init__(self, nome):
         self.nome = nome
         self.carros = []
-        if os.path.exists(f'{self.nome}.txt'):
-            file = open(f'{self.nome}.txt', 'r')
-            for c in file.readlines():
-                c = c.strip().lstrip('(').rstrip(')').split(',')
-                carro = Carro(c[0].strip().strip('"').strip("'"),
-                              c[1].strip().strip('"').strip("'"),
-                              int(c[2]),
-                              c[3].strip().strip('"').strip("'"),
-                              float(c[4]),
-                              c[5].strip().strip('"').strip("'"))
-                self.carros.append(carro)
-        else:
-            file = open(f'{self.nome}.txt', 'w')
-        file.close()
 
     def get_nome(self):
         return self.nome

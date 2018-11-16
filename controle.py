@@ -1,4 +1,4 @@
-from janela_principal import Janela_Principal
+from janela_principal_2 import Janela_Principal
 from concessionária import Concessionaria
 from carro import Carro
 from Vendedor import Vendedor
