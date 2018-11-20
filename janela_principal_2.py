@@ -28,7 +28,18 @@ class Janela_Principal(Tk):
         self.menucascata.add_command(label='Sair', command=self.destroy)
         self.menu.add_cascade(label='Menu', menu=self.menucascata)
         self.config(menu=self.menu)
+        self.carregar_carros()
 
+
+    def carregar_carros(self):
+        r = 0
+        c = 0
+        for b in self.control.show_carros():
+            self.b_carro = Button(self, width=10, text=f'{b[5]}').grid(row=r, column=c)
+            c += 1
+            if c == 2:
+                c = 0
+                r += 1
 
 
     def destroy(self):
@@ -39,7 +50,7 @@ class Janela_Principal(Tk):
         Janela_Comprador(self)
 
     def janela_vendedor(self):
-        Janela_Vendedor(self)
+        Janela_Vendedor(self, self.control)
 
     def janela_carros(self):
         Janela_Carros(self)

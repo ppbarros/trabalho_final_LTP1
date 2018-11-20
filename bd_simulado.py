@@ -78,3 +78,13 @@ class Bd_Simulado:
             file.write(str(c.get_dados()))
             file.write('\n')
         file.close()
+
+    def show_carros(self):
+        return self.carros
+
+    def show_vend(self):
+        return self.vendedor
+
+    def show_comp(self):
+        return self.comprador
+
