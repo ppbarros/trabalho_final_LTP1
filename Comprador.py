@@ -8,3 +8,6 @@ class Comprador:
 
     def get_cpf(self):
         return self.cpf
+
+    def get_dados(self):
+        return self.nome, self.cpf

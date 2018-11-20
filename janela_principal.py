@@ -9,7 +9,7 @@ class Janela_Principal(Tk):
         self.control = control
         super().__init__()
         Janela_Nome(self)
-        self.title(Janela_Nome.nome)
+        self.title(f'{Janela_Nome.nome}')
         self.geometry('500x500+200+200')
         Label(self, text='Menu').grid(row=0, column=0, pady=10, columnspan=3)
         self.btn_comprador = Button(self, width=10, text='Comprador',
@@ -25,6 +25,15 @@ class Janela_Principal(Tk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=1)
+
+        r = 0
+        c = 0
+        for b in self.control.bd.carros:
+            self.b_carro = Button(self, width=10, text=f'{b[5]}').grid(row=r, column=c)
+            c += 1
+            if c == 2:
+                c = 0
+                r += 1
 
 
 

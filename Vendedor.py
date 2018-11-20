@@ -12,3 +12,6 @@ class Vendedor:
 
     def get_matricula(self):
         return self.matricula
+
+    def get_dados(self):
+        return self.nome, self.cpf, self.matricula

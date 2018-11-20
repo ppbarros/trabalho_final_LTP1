@@ -1,12 +1,8 @@
 import os
 from carro import Carro
 class Concessionaria:
-    def __init__(self, nome):
-        self.nome = nome
+    def __init__(self):
         self.carros = []
-
-    def get_nome(self):
-        return self.nome
 
     def get_carros(self):
         return self.carros
@@ -18,7 +14,7 @@ class Concessionaria:
         # file.close()
 
     def save_cars(self):
-        file = open(f'{self.nome}.txt', 'w')
+        file = open('Concessionária.txt', 'w')
         for c in self.carros:
             file.write(str(c.get_dados()))
             file.write('\n')
