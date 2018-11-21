@@ -88,3 +88,7 @@ class Bd_Simulado:
     def show_comp(self):
         return self.comprador
 
+    def rmv_vend(self, v):
+        rmvd = v
+        self.vendedor.remove(v)
+        return rmvd
