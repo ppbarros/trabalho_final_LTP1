@@ -15,9 +15,9 @@ class Bd_Simulado:
                 c = c.strip().lstrip('(').rstrip(')').split(',')
                 carro = Carro(c[0].strip().strip('"').strip("'"),
                               c[1].strip().strip('"').strip("'"),
-                              int(c[2]),
+                              c[2].strip().strip('"').strip("'"),
                               c[3].strip().strip('"').strip("'"),
-                              float(c[4]),
+                              c[4].strip().strip('"').strip("'"),
                               c[5].strip().strip('"').strip("'"))
                 self.carros.append(carro)
         else:
@@ -31,8 +31,8 @@ class Bd_Simulado:
                 c = c.strip().lstrip('(').rstrip(')').split(',')
                 vend = Vendedor(c[0].strip().strip('"').strip("'"),
                               c[1].strip().strip('"').strip("'"),
-                              c[2])
-                self.carros.append(vend)
+                              c[2].strip().strip('"').strip("'"))
+                self.vendedor.append(vend)
         else:
             file = open('Vendedores.txt', 'w')
         file.close()
@@ -44,7 +44,7 @@ class Bd_Simulado:
                 c = c.strip().lstrip('(').rstrip(')').split(',')
                 comp = Comprador(c[0].strip().strip('"').strip("'"),
                               c[1].strip().strip('"').strip("'"))
-                self.carros.append(comp)
+                self.comprador.append(comp)
         else:
             file = open('Compradores.txt', 'w')
         file.close()
@@ -58,7 +58,7 @@ class Bd_Simulado:
     def add_comprador(self, comprador):
         self.comprador.append(comprador)
 
-    def save_cars(self):
+    def save_carros(self):
         file = open('Carros.txt', 'w')
         for c in self.carros:
             file.write(str(c.get_dados()))
@@ -91,4 +91,14 @@ class Bd_Simulado:
     def rmv_vend(self, v):
         rmvd = v
         self.vendedor.remove(v)
+        return rmvd
+
+    def rmv_comp(self, c):
+        rmvd = c
+        self.comprador.remove(c)
+        return rmvd
+
+    def rmv_car(self, c):
+        rmvd = c
+        self.carros.remove(c)
         return rmvd

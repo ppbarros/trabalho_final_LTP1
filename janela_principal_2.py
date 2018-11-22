@@ -9,15 +9,17 @@ class Janela_Principal(Tk):
         super().__init__()
         self.title('Concessionária')
         self.geometry('500x500+200+200')
-        Label(self, text='Carros').grid(row=0, column=0, pady=5, columnspan=3, stick=N)
+        Label(self, text='Carros').grid(row=0, column=0, pady=5, columnspan=10, stick=N)
 
-        # self.btn_close = Button(self, width=10, text='Sair',
-        #                  command=self.destroy).grid(row=2, column=0, padx=5, columnspan=3, pady=5, stick=S)
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_rowconfigure(2, weight=10)
+        self.btn_close = Button(self, width=10, text='Sair', command=self.destroy).\
+            grid(row=100, column=0, padx=5, columnspan=4, pady=5, stick=S)
+
+        self.grid_rowconfigure(0, weight=0)
+        self.grid_rowconfigure(2, weight=0)
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=1)
+        self.grid_columnconfigure(3, weight=1)
 
         self.menu = Menu(self)
         self.menucascata = Menu(self.menu, tearoff=0)
@@ -28,19 +30,22 @@ class Janela_Principal(Tk):
         self.menucascata.add_command(label='Sair', command=self.destroy)
         self.menu.add_cascade(label='Menu', menu=self.menucascata)
         self.config(menu=self.menu)
+
+        self.btn_atualizar_carros = Button(self, text='Atualizar Pátio', command=self.carregar_carros).\
+            grid(row=99, column=0, columnspan=10, pady=5)
+
         self.carregar_carros()
 
 
     def carregar_carros(self):
-        r = 0
+        r = 2
         c = 0
-        for b in self.control.show_carros():
-            self.b_carro = Button(self, width=10, text=f'{b[5]}').grid(row=r, column=c)
+        for b in self.control.bd.show_carros():
+            Button(self, width=10, text=f'{b.get_placa()}').grid(row=r, column=c, pady=5)
             c += 1
-            if c == 2:
+            if c == 4:
                 c = 0
                 r += 1
-
 
     def destroy(self):
         if messagebox.askyesno('Sair', 'Tem certeza que deseja sair?'):
@@ -53,4 +58,4 @@ class Janela_Principal(Tk):
         Janela_Vendedor(self, self.control)
 
     def janela_carros(self):
-        Janela_Carros(self)
+        Janela_Carros(self, self.control)

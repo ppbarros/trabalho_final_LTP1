@@ -12,6 +12,3 @@ class Controle:
         self.bd.carregar_vendedores()
         self.jn = Janela_Principal(self)
         self.jn.mainloop()
-
-    def show_carros(self):
-        return self.bd.show_carros()
