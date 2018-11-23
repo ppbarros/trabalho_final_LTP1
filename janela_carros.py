@@ -79,12 +79,13 @@ class Janela_Carros(Toplevel):
         if messagebox.askyesno('Excluir', f'Tem ceteza que deseja excluir o carro: {placa}?') is False:
             return None
         for c in self.control.bd.show_carros():
-            if c.get_modelo == modelo and c.get_marca == marca and c.get_ano() == ano and c.get_placa() == placa:
-                rmvd = self.control.bd.rmv_vend(c)
+            if c.get_modelo() == modelo and c.get_marca() == marca and c.get_ano() == ano and c.get_placa() == placa:
+                rmvd = self.control.bd.rmv_car(c)
                 messagebox.showinfo('Carro', f'{placa} foi removido.')
         if rmvd is None:
             messagebox.showerror('Carro', 'Não há carro cadastrado com estes dados.')
 
     def destroy(self):
         self.control.bd.save_carros()
+        self.control.jn.atualizar_patio()
         super().destroy()

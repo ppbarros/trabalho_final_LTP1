@@ -31,11 +31,10 @@ class Janela_Principal(Tk):
         self.menu.add_cascade(label='Menu', menu=self.menucascata)
         self.config(menu=self.menu)
 
-        self.btn_atualizar_carros = Button(self, text='Atualizar Pátio', command=self.carregar_carros).\
+        self.btn_atualizar_carros = Button(self, text='Atualizar Pátio', command=self.atualizar_patio).\
             grid(row=99, column=0, columnspan=10, pady=5)
 
         self.carregar_carros()
-
 
     def carregar_carros(self):
         r = 2
@@ -59,3 +58,10 @@ class Janela_Principal(Tk):
 
     def janela_carros(self):
         Janela_Carros(self, self.control)
+
+    def atualizar_patio(self):
+        for c in self.grid_slaves():
+            if type(c) is Button:
+                if c['text'] != 'Atualizar Pátio' and c['text'] != 'Sair':
+                    c.destroy()
+        self.carregar_carros()
