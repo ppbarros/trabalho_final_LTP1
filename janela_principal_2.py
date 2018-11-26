@@ -3,6 +3,9 @@ from tkinter import messagebox
 from janela_comprador import Janela_Comprador
 from janela_vendedor import Janela_Vendedor
 from janela_carros import Janela_Carros
+from janela_venda import Janela_Venda
+
+
 class Janela_Principal(Tk):
     def __init__(self, control):
         self.control = control
@@ -31,8 +34,8 @@ class Janela_Principal(Tk):
         self.menu.add_cascade(label='Menu', menu=self.menucascata)
         self.config(menu=self.menu)
 
-        self.btn_atualizar_carros = Button(self, text='Atualizar Pátio', command=self.atualizar_patio).\
-            grid(row=99, column=0, columnspan=10, pady=5)
+        # self.btn_atualizar_carros = Button(self, text='Atualizar Pátio', command=self.atualizar_patio).\
+        #     grid(row=99, column=0, columnspan=10, pady=5)
 
         self.carregar_carros()
 
@@ -40,7 +43,7 @@ class Janela_Principal(Tk):
         r = 2
         c = 0
         for b in self.control.bd.show_carros():
-            Button(self, width=10, text=f'{b.get_placa()}').grid(row=r, column=c, pady=5)
+            Button(self, width=10, text=f'{b.get_placa()}', command=lambda: self.janela_venda()).grid(row=r, column=c, pady=5)
             c += 1
             if c == 4:
                 c = 0
@@ -51,7 +54,7 @@ class Janela_Principal(Tk):
             super().destroy()
 
     def janela_comprador(self):
-        Janela_Comprador(self)
+        Janela_Comprador(self, self.control)
 
     def janela_vendedor(self):
         Janela_Vendedor(self, self.control)
@@ -62,6 +65,10 @@ class Janela_Principal(Tk):
     def atualizar_patio(self):
         for c in self.grid_slaves():
             if type(c) is Button:
-                if c['text'] != 'Atualizar Pátio' and c['text'] != 'Sair':
+                if c['text'] != 'Sair':
                     c.destroy()
         self.carregar_carros()
+
+    def janela_venda(self, carro):
+        Janela_Venda(self, self.control, carro)
+

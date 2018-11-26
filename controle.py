@@ -1,10 +1,7 @@
 from janela_principal_2 import Janela_Principal
-from tkinter import *
-from concessionária import Concessionaria
-from carro import Carro
-from Vendedor import Vendedor
-from Comprador import Comprador
 from bd_simulado import Bd_Simulado
+
+
 class Controle:
     def __init__(self):
         self.bd = Bd_Simulado()
@@ -12,7 +9,4 @@ class Controle:
         self.bd.carregar_compradores()
         self.bd.carregar_vendedores()
         self.jn = Janela_Principal(self)
-        for c in self.jn.grid_slaves():
-            if type(c) is Button:
-                print(c['text'])
         self.jn.mainloop()

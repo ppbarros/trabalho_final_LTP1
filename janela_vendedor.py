@@ -1,6 +1,8 @@
 from tkinter import *
 from Vendedor import Vendedor
 from tkinter import messagebox
+
+
 class Janela_Vendedor(Toplevel):
     def __init__(self, parent, control):
         super().__init__(parent)

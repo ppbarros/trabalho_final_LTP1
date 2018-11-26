@@ -2,11 +2,14 @@ import os
 from carro import Carro
 from Vendedor import Vendedor
 from Comprador import Comprador
+
+
 class Bd_Simulado:
     def __init__(self):
         self.carros = []
         self.vendedor = []
         self.comprador = []
+        self.venda = []
 
     def carregar_carros(self):
         if os.path.exists('Carros.txt'):

@@ -1,4 +1,5 @@
 from tkinter import *
+
 class Janela_Nome(Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
