@@ -12,13 +12,14 @@ class Janela_Carros(Toplevel):
         self.transient(parent)
         self.grab_set()
 
-        Label(self, text='').grid(row=0, column=2, padx=20, pady=10)
-        Label(self, text='').grid(row=0, column=0, padx=20, pady=10)
+        Label(self, text='').grid(row=0, column=2, padx=20, pady=2)
+        Label(self, text='').grid(row=0, column=0, padx=20, pady=2)
+        Label(self, text='').grid(row=47, column=0, padx=20, pady=20)
 
         self.btn_add = Button(self, text='Adicionar Carro', command=self.add_car).\
-            grid(row=7, column=1, pady=10, stick=S)
+            grid(row=7, column=1, columnspan=3, pady=10, stick=S)
         self.bt_rmv = Button(self, text='Remover Carro', command=self.rmv_car).\
-            grid(row=7, column=3, columnspan=2, pady=10, stick=S)
+            grid(row=49, column=1, columnspan=3, pady=10, stick=S)
 
         self.btn_close = Button(self, text='Fechar Janela', command=self.destroy, width=10)
         self.btn_close.grid(row=50, column=1, columnspan=3, stick=S, pady=20)
@@ -59,11 +60,17 @@ class Janela_Carros(Toplevel):
         self.lbl_placa = Label(self, text='Placa').\
             grid(row=6, column=1, stick=E)
 
+        self.entry_placa_var2 = StringVar()
+        self.entry_placa2 = Entry(self, textvariable=self.entry_placa_var2). \
+            grid(row=48, column=3)
+        self.lbl_placa2 = Label(self, text='Placa'). \
+            grid(row=48, column=1, stick=E)
+
     def add_car(self):
         modelo = self.entry_mod_var.get()
         marca = self.entry_marca_var.get()
         ano = self.entry_ano_var.get()
-        preco = self.entry_preco_var.get()
+        preco = float(self.entry_preco_var.get())
         estado = self.entry_estado_var.get()
         placa = self.entry_placa_var.get()
         c = Carro(modelo, marca, ano, estado, preco, placa)
@@ -71,17 +78,12 @@ class Janela_Carros(Toplevel):
         messagebox.showinfo('Carro', f'{placa} foi adicionado.')
 
     def rmv_car(self):
-        modelo = self.entry_mod_var.get()
-        marca = self.entry_marca_var.get()
-        ano = self.entry_ano_var.get()
-        preco = self.entry_preco_var.get()
-        estado = self.entry_estado_var.get()
-        placa = self.entry_placa_var.get()
+        placa = self.entry_placa_var2.get()
         rmvd = None
         if messagebox.askyesno('Excluir', f'Tem ceteza que deseja excluir o carro: {placa}?') is False:
             return None
         for c in self.control.bd.show_carros():
-            if c.get_modelo() == modelo and c.get_marca() == marca and c.get_ano() == ano and c.get_placa() == placa:
+            if c.get_placa() == placa:
                 rmvd = self.control.bd.rmv_car(c)
                 messagebox.showinfo('Carro', f'{placa} foi removido.')
         if rmvd is None:

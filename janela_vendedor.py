@@ -13,14 +13,15 @@ class Janela_Vendedor(Toplevel):
         self.grab_set()
 
         Label(self, text='').grid(row=0, column=2, padx=10, pady=10)
-        Label(self, text='').grid(row=0, column=0, padx=20, pady=10)
+        Label(self, text='').grid(row=0, column=0, padx=40, pady=10)
+        Label(self, text='').grid(row=5, column=0, padx=10, pady=20)
 
         self.btn_add = Button(self, text='Adicionar Vendedor', command=self.add_vend).\
-            grid(row=4, column=1, pady=10, stick=S)
+            grid(row=4, column=1, columnspan=3, pady=10, stick=S)
         self.bt_rmv = Button(self, text='Remover Vendedor', command=self.rmv_vend).\
-            grid(row=4, column=3, columnspan=2, pady=10, stick=S)
+            grid(row=9, column=1, columnspan=3, pady=10, stick=S)
         self.btn_close = Button(self, text='Fechar Janela', command=self.destroy, width=10)
-        self.btn_close.grid(row=5, column=1, columnspan=3, stick=S, pady=20)
+        self.btn_close.grid(row=10, column=1, columnspan=3, stick=S, pady=20)
 
         self.entry_nome_var = StringVar()
         self.entry_nome = Entry(self, textvariable=self.entry_nome_var).\
@@ -40,6 +41,11 @@ class Janela_Vendedor(Toplevel):
         self.lbl_mat = Label(self, text='Matrícula').\
             grid(row=3, column=1, padx=1, pady=1)
 
+        self.entry_mat_var2 = StringVar()
+        self.entry_mat2 = Entry(self, textvariable=self.entry_mat_var2). \
+            grid(row=6, column=3, padx=1, pady=1)
+        self.lbl_mat2 = Label(self, text='Matrícula'). \
+            grid(row=6, column=1, padx=1, pady=1)
 
     def add_vend(self):
         nome = self.entry_nome_var.get()
@@ -50,18 +56,17 @@ class Janela_Vendedor(Toplevel):
         messagebox.showinfo('Vendedor', f'{nome} foi adicionado.')
 
     def rmv_vend(self):
-        nome = self.entry_nome_var.get()
-        cpf = self.entry_cpf_var.get()
-        matricula = self.entry_mat_var.get()
+        matricula = self.entry_mat_var2.get()
         rmvd = None
-        if messagebox.askyesno('Excluir', f'Tem ceteza que deseja excluir o vendedor {nome}?') is False:
-            return None
-        for v in self.control.bd.show_vend():
-            if v.get_nome() == nome and v.get_cpf() == cpf and v.get_matricula() == matricula:
-                rmvd = self.control.bd.rmv_vend(v)
-                messagebox.showinfo('Vendedor', f'{nome} foi removido.')
+        for vend in self.control.bd.show_vend():
+            if matricula == vend.get_matricula():
+                if messagebox.askyesno\
+                            ('Excluir', f'Tem ceteza que deseja excluir o vendedor {vend.get_nome()}?') is False:
+                    return None
+                rmvd = self.control.bd.rmv_vend(vend)
+                messagebox.showinfo('Vendedor', f'{vend.get_nome()} foi removido.')
         if rmvd is None:
-            messagebox.showerror('Vendedor', 'Não há vendedor cadastrado com estes dados')
+            messagebox.showerror('Vendedor', 'Não há vendedor cadastrado com esta matrícula')
 
     def destroy(self):
         self.control.bd.save_vendedor()

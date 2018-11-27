@@ -42,17 +42,17 @@ class Janela_Comprador(Toplevel):
         messagebox.showinfo('Comprador', f'{nome} foi adicionado.')
 
     def rmv_vend(self):
-        nome = self.entry_nome_var.get()
         cpf = self.entry_cpf_var.get()
         rmvd = None
-        if messagebox.askyesno('Excluir', f'Tem ceteza que deseja excluir o vendedor {nome}?') is False:
-            return None
-        for c in self.control.bd.show_comp():
-            if c.get_nome() == nome and c.get_cpf() == cpf:
-                rmvd = self.control.bd.rmv_comp(c)
-                messagebox.showinfo('Comprador', f'{nome} foi removido.')
+        for comp in self.control.bd.show_comp():
+            if cpf == comp.get_cpf():
+                if messagebox.askyesno\
+                            ('Excluir', f'Tem ceteza que deseja excluir o comprador {comp.get_nome()}?') is False:
+                    return None
+                rmvd = self.control.bd.rmv_comp(comp)
+                messagebox.showinfo('Comprador', f'{comp.get_nome()} foi removido.')
         if rmvd is None:
-            messagebox.showerror('Comprador', 'Não há vendedor cadastrado com estes dados')
+            messagebox.showerror('Comprador', 'Não há comprador cadastrado com este CPF')
 
     def destroy(self):
         self.control.bd.save_comprador()

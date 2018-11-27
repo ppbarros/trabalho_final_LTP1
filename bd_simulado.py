@@ -2,6 +2,7 @@ import os
 from carro import Carro
 from Vendedor import Vendedor
 from Comprador import Comprador
+from venda import Venda
 
 
 class Bd_Simulado:
@@ -20,7 +21,7 @@ class Bd_Simulado:
                               c[1].strip().strip('"').strip("'"),
                               c[2].strip().strip('"').strip("'"),
                               c[3].strip().strip('"').strip("'"),
-                              c[4].strip().strip('"').strip("'"),
+                              float(c[4].strip().strip('"').strip("'")),
                               c[5].strip().strip('"').strip("'"))
                 self.carros.append(carro)
         else:
@@ -33,8 +34,8 @@ class Bd_Simulado:
             for c in file.readlines():
                 c = c.strip().lstrip('(').rstrip(')').split(',')
                 vend = Vendedor(c[0].strip().strip('"').strip("'"),
-                              c[1].strip().strip('"').strip("'"),
-                              c[2].strip().strip('"').strip("'"))
+                                c[1].strip().strip('"').strip("'"),
+                                c[2].strip().strip('"').strip("'"))
                 self.vendedor.append(vend)
         else:
             file = open('Vendedores.txt', 'w')
