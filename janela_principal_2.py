@@ -43,7 +43,8 @@ class Janela_Principal(Tk):
         r = 2
         c = 0
         for b in self.control.bd.show_carros():
-            Button(self, width=10, text=f'{b.get_placa()}', command=lambda: self.janela_venda()).grid(row=r, column=c, pady=5)
+            Button(self, width=10, text=f'{b.get_placa()}', command=lambda carro=b: self.
+                   janela_venda(carro)).grid(row=r, column=c, pady=5)
             c += 1
             if c == 4:
                 c = 0
@@ -71,4 +72,3 @@ class Janela_Principal(Tk):
 
     def janela_venda(self, carro):
         Janela_Venda(self, self.control, carro)
-
