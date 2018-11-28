@@ -8,5 +8,6 @@ class Controle:
         self.bd.carregar_carros()
         self.bd.carregar_compradores()
         self.bd.carregar_vendedores()
+        self.bd.carregar_vendas()
         self.jn = Janela_Principal(self)
         self.jn.mainloop()

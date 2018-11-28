@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+from venda import Venda
 
 
 class Janela_Venda(Toplevel):
@@ -16,7 +17,7 @@ class Janela_Venda(Toplevel):
         Label(self, text='').grid(row=2, column=0, pady=5, padx=25)
         Label(self, text='').grid(row=0, column=2, padx=10)
         self.bt_canel = Button(self, text='Cancelar', width=10, command=super().destroy).grid(row=4, column=1, pady=20)
-        self.bt_confirm = Button(self, text='Confirmar', width=10).grid(row=4, column=3, pady=20)
+        self.bt_confirm = Button(self, text='Confirmar', width=10, command=self.confirm_venda).grid(row=4, column=3, pady=20)
 
         self.cpf_comp_entry = StringVar()
         self.cpf_comp = Entry(self, textvariable=self.cpf_comp_entry).grid(row=1, column=3)
@@ -27,5 +28,29 @@ class Janela_Venda(Toplevel):
         self.mat_vend_lbl = Label(self, text='Matrícula do Vendedor').grid(row=2, column=1)
 
         self.preco_venda_entry = StringVar()
-        self.preco_venda = Entry(self, textvariable=self.cpf_comp_entry).grid(row=3, column=3)
+        self.preco_venda = Entry(self, textvariable=self.preco_venda_entry).grid(row=3, column=3)
         self.preco_venda_lbl = Label(self, text='Preço de Venda').grid(row=3, column=1)
+
+    def confirm_venda(self):
+        mat = self.mat_vend_entry.get()
+        cpf = self.cpf_comp_entry.get()
+        preco = float(self.preco_venda_entry.get())
+        vend = None
+        comp = None
+        for v in self.control.bd.show_vend():
+            if mat == v.get_matricula():
+                vend = v
+        for c in self.control.bd.show_comp():
+            if cpf == c.get_cpf():
+                comp = c
+        if vend is not None and comp is not None:
+            venda = Venda(self.carro, vend, comp, preco)
+            self.control.bd.add_venda(venda)
+            self.control.bd.rmv_car(self.carro)
+            # self.control.jn.janela_nota()
+            self.control.jn.atualizar_patio()
+            self.control.bd.save_carros()
+            self.control.bd.save_vendas()
+            super().destroy()
+        else:
+            messagebox.showerror('Venda', 'Dados digitados incorretos. Por favor verificá-los.')

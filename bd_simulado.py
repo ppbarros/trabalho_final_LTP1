@@ -58,19 +58,19 @@ class Bd_Simulado:
             file = open('Vendas.txt', 'r')
             for c in file.readlines():
                 c = c.strip().lstrip('(').rstrip(')').split(',')
-                carro = Carro(c[0].strip().strip('"').strip("'"),
+                carro = Carro(c[0].strip().strip('(').strip('"').strip("'"),
                               c[1].strip().strip('"').strip("'"),
                               c[2].strip().strip('"').strip("'"),
                               c[3].strip().strip('"').strip("'"),
                               float(c[4].strip().strip('"').strip("'")),
-                              c[5].strip().strip('"').strip("'"))
+                              c[5].strip().strip('"').strip("'").strip(')'))
 
-                vend = Vendedor(c[6].strip().strip('"').strip("'"),
+                vend = Vendedor(c[6].strip().strip('(').strip('"').strip("'"),
                                 c[7].strip().strip('"').strip("'"),
-                                c[8].strip().strip('"').strip("'"))
+                                c[8].strip().strip('"').strip("'").strip(')'))
 
-                comp = Comprador(c[9].strip().strip('"').strip("'"),
-                                 c[10].strip().strip('"').strip("'"))
+                comp = Comprador(c[9].strip().strip('(').strip('"').strip("'"),
+                                 c[10].strip().strip('"').strip("'").strip(')'))
 
                 preco = float(c[11])
 
@@ -129,6 +129,12 @@ class Bd_Simulado:
 
     def show_comp(self):
         return self.comprador
+
+    def show_vendas(self):
+        return self.vendas
+
+    def show_last_venda(self):
+        return self.vendas[len(self.show_vendas()) - 1]
 
     def rmv_vend(self, v):
         rmvd = v

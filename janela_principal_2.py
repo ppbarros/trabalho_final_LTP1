@@ -4,7 +4,7 @@ from janela_comprador import Janela_Comprador
 from janela_vendedor import Janela_Vendedor
 from janela_carros import Janela_Carros
 from janela_venda import Janela_Venda
-
+from janela_nota_venda import Janela_Nota_Venda
 
 class Janela_Principal(Tk):
     def __init__(self, control):
@@ -72,3 +72,6 @@ class Janela_Principal(Tk):
 
     def janela_venda(self, carro):
         Janela_Venda(self, self.control, carro)
+
+    def janela_nota(self):
+        Janela_Nota_Venda(self, self.control)
