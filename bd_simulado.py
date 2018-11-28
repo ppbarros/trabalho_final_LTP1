@@ -10,7 +10,7 @@ class Bd_Simulado:
         self.carros = []
         self.vendedor = []
         self.comprador = []
-        self.venda = []
+        self.vendas = []
 
     def carregar_carros(self):
         if os.path.exists('Carros.txt'):
@@ -53,6 +53,34 @@ class Bd_Simulado:
             file = open('Compradores.txt', 'w')
         file.close()
 
+    def carregar_vendas(self):
+        if os.path.exists('Vendas.txt'):
+            file = open('Vendas.txt', 'r')
+            for c in file.readlines():
+                c = c.strip().lstrip('(').rstrip(')').split(',')
+                carro = Carro(c[0].strip().strip('"').strip("'"),
+                              c[1].strip().strip('"').strip("'"),
+                              c[2].strip().strip('"').strip("'"),
+                              c[3].strip().strip('"').strip("'"),
+                              float(c[4].strip().strip('"').strip("'")),
+                              c[5].strip().strip('"').strip("'"))
+
+                vend = Vendedor(c[6].strip().strip('"').strip("'"),
+                                c[7].strip().strip('"').strip("'"),
+                                c[8].strip().strip('"').strip("'"))
+
+                comp = Comprador(c[9].strip().strip('"').strip("'"),
+                                 c[10].strip().strip('"').strip("'"))
+
+                preco = float(c[11])
+
+                venda = Venda(carro, vend, comp, preco)
+
+                self.vendas.append(venda)
+        else:
+            file = open('Vendas.txt', 'w')
+        file.close()
+
     def add_carro(self, carro):
         self.carros.append(carro)
 
@@ -61,6 +89,9 @@ class Bd_Simulado:
 
     def add_comprador(self, comprador):
         self.comprador.append(comprador)
+
+    def add_venda(self, venda):
+        self.vendas.append(venda)
 
     def save_carros(self):
         file = open('Carros.txt', 'w')
@@ -80,6 +111,13 @@ class Bd_Simulado:
         file = open('Compradores.txt', 'w')
         for c in self.comprador:
             file.write(str(c.get_dados()))
+            file.write('\n')
+        file.close()
+
+    def save_vendas(self):
+        file = open('Vendas.txt', 'w')
+        for c in self.vendas:
+            file.write(str(c.info_venda()))
             file.write('\n')
         file.close()
 
