@@ -16,8 +16,10 @@ class Janela_Venda(Toplevel):
         Label(self, text='').grid(row=0, column=0, padx=25, pady=5)
         Label(self, text='').grid(row=2, column=0, pady=5, padx=25)
         Label(self, text='').grid(row=0, column=2, padx=10)
-        self.bt_canel = Button(self, text='Cancelar', width=10, command=super().destroy).grid(row=4, column=1, pady=20)
-        self.bt_confirm = Button(self, text='Confirmar', width=10, command=self.confirm_venda).grid(row=4, column=3, pady=20)
+        self.bt_canel = Button(self, text='Cancelar', width=10,
+                               command=super().destroy).grid(row=4, column=1, pady=20)
+        self.bt_confirm = Button(self, text='Confirmar', width=10,
+                                 command=self.confirm_venda).grid(row=4, column=3, pady=20)
 
         self.cpf_comp_entry = StringVar()
         self.cpf_comp = Entry(self, textvariable=self.cpf_comp_entry).grid(row=1, column=3)
@@ -27,8 +29,10 @@ class Janela_Venda(Toplevel):
         self.mat_vend = Entry(self, textvariable=self.mat_vend_entry).grid(column=3, row=2)
         self.mat_vend_lbl = Label(self, text='Matrícula do Vendedor').grid(row=2, column=1)
 
+        validation = self.register(self.only_numbers)
         self.preco_venda_entry = StringVar()
-        self.preco_venda = Entry(self, textvariable=self.preco_venda_entry).grid(row=3, column=3)
+        self.preco_venda = Entry(self, validate='key', validatecommand=(validation, '%S'),
+                                 textvariable=self.preco_venda_entry).grid(row=3, column=3)
         self.preco_venda_lbl = Label(self, text='Preço de Venda').grid(row=3, column=1)
 
     def confirm_venda(self):
@@ -77,3 +81,6 @@ Nome: {vend.get_nome()}
 CPF: {vend.get_cpf()}
 Matrícula: {vend.get_matricula()}''')
         f.close()
+
+    def only_numbers(self, char):
+        return char.isnumeric()

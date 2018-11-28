@@ -42,8 +42,10 @@ class Janela_Carros(Toplevel):
         self.lbl_ano = Label(self, text='Ano').\
             grid(row=3, column=1, stick=E)
 
+        validation = self.register(self.only_numbers)
         self.entry_preco_var = StringVar()
-        self.entry_preco = Entry(self, textvariable=self.entry_preco_var).\
+        self.entry_preco = Entry(self, validate='key', validatecommand=(validation, '%S'),
+                                 textvariable=self.entry_preco_var).\
             grid(row=4, column=3)
         self.lbl_preco = Label(self, text='Preço de Compra').\
             grid(row=4, column=1, stick=E)
@@ -93,3 +95,6 @@ class Janela_Carros(Toplevel):
         self.control.bd.save_carros()
         self.control.jn.atualizar_patio()
         super().destroy()
+
+    def only_numbers(self, char):
+        return char.isnumeric()
