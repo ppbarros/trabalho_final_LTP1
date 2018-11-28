@@ -47,10 +47,33 @@ class Janela_Venda(Toplevel):
             venda = Venda(self.carro, vend, comp, preco)
             self.control.bd.add_venda(venda)
             self.control.bd.rmv_car(self.carro)
-            # self.control.jn.janela_nota()
             self.control.jn.atualizar_patio()
             self.control.bd.save_carros()
             self.control.bd.save_vendas()
+            self.gerar_nota(vend, comp, preco)
+            self.control.jn.janela_nota()
             super().destroy()
         else:
             messagebox.showerror('Venda', 'Dados digitados incorretos. Por favor verificá-los.')
+
+    def gerar_nota(self, vend, comp, preco):
+        f = open('Nota de Venda.txt', 'w')
+        f.write(f'''    Carro
+Modelo: {self.carro.get_modelo()}
+Marca: {self.carro.get_marca()}
+Ano: {self.carro.get_ano()}
+Estado {self.carro.get_estado()}
+Placa: {self.carro.get_placa()}
+Preço de Compra: {self.carro.get_preco()}
+Preço de Venda: {preco}
+Lucro: {preco - self.carro.get_preco()}
+
+    Comprador
+Nome: {comp.get_nome()}
+CPF: {comp.get_cpf()}
+
+    Vendedor
+Nome: {vend.get_nome()}
+CPF: {vend.get_cpf()}
+Matrícula: {vend.get_matricula()}''')
+        f.close()
